@@ -1,0 +1,214 @@
+// @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500;1,700;1,900&display=swap');
+
+@function strip-unit($value) {
+    @return $value / ($value * 0 + 1);
+  }
+
+    $min-vw: 320px;
+    $max-vw: 1920px;
+  
+  @mixin fluid-type($min-font-size, $max-font-size) {
+    $u1: unit($min-vw);
+    $u2: unit($max-vw);
+    $u3: unit($min-font-size);
+    $u4: unit($max-font-size);
+  
+    @if $u1 == $u2 and $u1 == $u3 and $u1 == $u4 {
+      & {
+        font-size: $min-font-size;
+        @media screen and (min-width: $min-vw) {
+          font-size: calc(#{$min-font-size} + #{strip-unit($max-font-size - $min-font-size)} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
+        }
+        @media screen and (min-width: $max-vw) {
+          font-size: $max-font-size;
+        }
+      }
+    }
+  }
+
+body{
+    background-color: #050920;
+    font-family: 'Nunito', sans-serif;
+    overflow-x: hidden;
+}
+
+@import '_page-content';
+
+.reveal{
+    position: relative;
+    transform: translateY(150px);
+    opacity: 0;
+    transition: 1s all ease;
+}
+
+.reveal.active{
+transform: translateY(0);
+opacity: 1;
+}
+
+.main-header{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 99999;
+
+    &_navbar{
+        // background-color: #05092065;
+    }
+
+    .navbar-nav{
+        width: 100%;
+        justify-content: right;
+    }
+}
+
+.main-content{
+    
+    &__top{
+        position: relative;
+        height: 100vh;
+        z-index: 0;
+        overflow: hidden;
+        
+        &-bgLayers{
+            position: relative;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+
+            &_item{
+                position: absolute;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;
+                height: 100%;
+                width: 100%;
+                pointer-events: none;
+
+                transition: transform .75s cubic-bezier(.075, .5, 0, 1);
+
+                &.item-1{
+                    background-image: url(../imgs/top-bg/layer-1.png);
+                }
+                &.item-2{
+                    background-image: url(../imgs/top-bg/layer-2.png);
+                    mix-blend-mode: screen;
+                    transform: translate3d(0, calc((var(--scrollTop))/2), 0);
+                }
+                &.item-3{
+                    background-image: url(../imgs/top-bg/layer-3.png);
+                    transform: translate3d(0, calc((var(--scrollTop))/3), 0);
+                }
+                &.item-4{
+                    background-image: url(../imgs/top-bg/layer-4.png);
+                    transform: translate3d(0, calc((var(--scrollTop))/4.5), 0);
+                }
+                &.item-5{
+                    background-image: url(../imgs/top-bg/layer-5.png);
+                    transform: translate3d(0, calc((var(--scrollTop))/4), 0);
+                }
+                &.text{
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: center;
+                    text-align: center;
+                    padding: 1rem 1rem 1rem 5rem;
+                    overflow: hidden;
+                    @media only screen and (max-width: 599.9px) {
+                        padding: 1rem 1rem 1rem 2rem;
+                    }
+                    @media only screen and (max-width: 499.9px) {
+                        padding: 1rem 1rem 1rem 1rem;
+                    }
+                    span{
+                        font-size: 80px;
+                        color: white;
+                        font-weight: 900;
+                        text-transform: uppercase;
+                        pointer-events: all;
+                        line-height: 1;
+                        filter: drop-shadow(-6px 10px 5px #000);
+                        @include fluid-type(40px, 80px);
+                        overflow: hidden;
+                    }
+                    transform: translate3d(calc((var(--scrollTop))/4), 0, 0);
+                }
+                &.item-6{
+                    background-image: url(../imgs/top-bg/layer-6.png);
+                    transform: translate3d(0, calc((var(--scrollTop))/4.5), 0);
+                }
+                &.item-7{
+                    background-image: url(../imgs/top-bg/layer-7.png);
+                    transform: translate3d(0, calc((var(--scrollTop))/4), 0);
+                }
+                &.item-8{
+                    background-image: url(../imgs/top-bg/layer-8.png);
+                }
+            }
+
+        }
+    }
+
+    &__sections{
+        position: relative;
+        background-color: #050920;
+        min-height: 100vh;
+        color: white;
+        padding-top: 5rem;
+        z-index: 1;
+
+        &-welcome{
+            text-align: center;
+            height: 100%;
+            padding-bottom: 5rem;
+
+            &_content{
+                border-right: 5px solid white;
+                height: 100%;
+
+                .titleWrapper{
+
+                    &-title{
+                        font-weight: bold;
+                        margin-top: 1rem;
+                        text-transform: uppercase;
+                        text-align: left;
+                        font-weight: 900;
+                    }
+
+                    &-subtitle{
+                        font-weight: bold;
+                        margin-top: 1rem;
+                        text-transform: uppercase;
+                        text-align: left;
+                        font-weight: 700;
+                    }
+
+                }
+            }
+
+            .line-box{
+                position: relative;
+                height: 200px;
+                border-left: 5px solid white;
+                border-top: 5px solid white;
+
+                &__insline{
+                    position: absolute;
+                    border-left: 5px solid white;
+                    height: 90%;
+                    left: -50px;
+                }
+            }
+        }
+    }
+
+    &__footer{
+        // height: 100vh;
+        &-bg{
+
+        }
+    }
+}
+
